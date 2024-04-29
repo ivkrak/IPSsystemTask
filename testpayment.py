@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/root/IPSsystemTask/venv/bin/python3
 
 import payment
 import sys
