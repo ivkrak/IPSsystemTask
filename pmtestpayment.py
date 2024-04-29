@@ -32,12 +32,12 @@ class TestPaymentModule(payment.PaymentModule):
         # мы всегда можем вывести xml в лог, чтобы изучить, что приходит :)
         logger.info(f"xml input: {ET.tostring(xml.getroot(), encoding='unicode')}")
 
-        terminalkey_node = xml.find('./terminalkey')
-        terminalpsw_node = xml.find('./terminalpsw')
-        terminalkey = terminalkey_node.text if terminalkey_node is not None else ''
-        terminalpsw = terminalpsw_node.text if terminalpsw_node is not None else ''
+        yookassa_shop_id_node = xml.find('./yookassa_shop_id')
+        yookassa_secret_node = xml.find('./yookassa_secret')
+        yookassa_shop_id = yookassa_shop_id_node.text if yookassa_shop_id_node is not None else ''
+        yookassa_secret = yookassa_secret_node.text if yookassa_secret_node is not None else ''
 
-        if terminalkey != 'rick' or terminalpsw != 'morty':
+        if yookassa_shop_id != 'rick' or yookassa_secret != 'morty':
             raise billmgr.exception.XmlException('wrong_terminal_info')
 
     # в тестовом примере получаем необходимые платежи
