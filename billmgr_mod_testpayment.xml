@@ -12,11 +12,11 @@
 	<metadata name="paymethod.edit.testpayment" type="form">
 		<form>
 			<page name="methodprops">
-				<field name="terminalkey">
-					<input type="text" name="terminalkey" private="yes" required="yes" maxlength="20"/>
+				<field name="yookassa_shop_id">
+					<input type="text" name="yookassa_shop_id" private="yes" required="yes" maxlength="20"/>
 				</field>
-				<field name="terminalpsw">
-					<input type="password" name="terminalpsw" private="yes" required="yes"/>
+				<field name="yookassa_secret">
+					<input type="password" name="yookassa_secret" private="yes" required="yes"/>
 				</field>
 			</page>
 		</form>
@@ -33,10 +33,10 @@
 			<msg name="module_pmtestpayment">Test</msg>
 		</messages>
 		<messages name="paymethod.edit.testpayment">
-			<msg name="terminalkey">Идентификатор терминала</msg>
-			<msg name="terminalpsw">Пароль терминала</msg>
-			<msg name="hint_terminalkey">Идентификатор терминала. Выдается продавцу банком при заведении терминала</msg>
-			<msg name="hint_terminalpsw">Пароль от терминала из личного кабинета</msg>
+			<msg name="yookassa_shop_id">Идентификатор терминала</msg>
+			<msg name="yookassa_secret">Пароль терминала</msg>
+			<msg name="hint_yookassa_shop_id">id магазина. Выдается продавцу банком при заведении терминала</msg>
+			<msg name="hint_yookassa_secret">секретный ключ из личного кабинета</msg>
 		</messages>
 		<messages name="msgerror">
 			<msg name="msg_error_wrong_terminal_info">Введены неверные данные терминала или терминал заблокирован</msg>
