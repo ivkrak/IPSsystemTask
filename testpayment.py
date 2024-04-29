@@ -40,5 +40,5 @@ class TestPaymentCgi(payment.PaymentCgi):
 
         sys.stdout.write(payment_form)
 
-
+print(f'{__name__} запущен')
 TestPaymentCgi().Process()

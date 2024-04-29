@@ -2,13 +2,13 @@ import os
 
 os.chdir("/usr/local/mgr5")
 
-from abc import ABC, abstractmethod # noqa
-from billmgr.misc import MgrctlXml # noqa
-import billmgr.db # noqa
-import billmgr.exception # noqa
-from enum import Enum # noqa
-import sys # noqa
-import xml.etree.ElementTree as ET # noqa
+from abc import ABC, abstractmethod  # noqa
+from billmgr.misc import MgrctlXml  # noqa
+import billmgr.db  # noqa
+import billmgr.exception  # noqa
+from enum import Enum  # noqa
+import sys  # noqa
+import xml.etree.ElementTree as ET  # noqa
 
 MODULE = 'payment'
 
@@ -216,3 +216,6 @@ class PaymentModule(ABC):
 
         except billmgr.exception.XmlException as exception:
             sys.stdout.write(exception.as_xml())
+
+
+print(f'{__name__} запущен')

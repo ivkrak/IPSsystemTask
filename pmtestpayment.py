@@ -55,5 +55,5 @@ class TestPaymentModule(payment.PaymentModule):
             logger.info(f"change status for payment {p['id']}")
             payment.set_paid(p['id'], '', f"external_{p['id']}")
 
-
+print(f'{__name__} запущен')
 TestPaymentModule().Process()
