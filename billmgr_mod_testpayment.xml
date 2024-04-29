@@ -33,7 +33,7 @@
 			<msg name="module_pmtestpayment">Test</msg>
 		</messages>
 		<messages name="paymethod.edit.testpayment">
-			<msg name="yookassa_shop_id">Идентификатор терминала</msg>
+			<msg name="yookassa_shop_id">id </msg>
 			<msg name="yookassa_secret">Пароль терминала</msg>
 			<msg name="hint_yookassa_shop_id">id магазина. Выдается продавцу банком при заведении терминала</msg>
 			<msg name="hint_yookassa_secret">секретный ключ из личного кабинета</msg>
