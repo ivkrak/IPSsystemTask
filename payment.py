@@ -148,7 +148,7 @@ FEATURE_PMVALIDATE = "pmvalidate"  # проверка введённых дан�
 FEATURE_PMUSERCREATE = "pmusercreate"  # для ссылки на регистрацию в платежке
 
 # параметры платежного модуля
-PAYMENT_PARAM_PAYMENT_SCRIPT = "payment_script"  # mancgi/<наименование cgi скрипта>
+PAYMENT_PARAM_PAYMENT_SCRIPT = "testpayment"  # mancgi/<наименование cgi скрипта>
 
 
 class PaymentModule(ABC):
