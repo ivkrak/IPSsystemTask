@@ -75,5 +75,4 @@ logger.error('''
           `"Y$b._
               `"""
 ''')
-print(f'{__name__} запущен')
 TestPaymentModule().Process()

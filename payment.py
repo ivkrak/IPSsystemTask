@@ -216,6 +216,3 @@ class PaymentModule(ABC):
 
         except billmgr.exception.XmlException as exception:
             sys.stdout.write(exception.as_xml())
-
-
-print(f'{__name__} запущен')
