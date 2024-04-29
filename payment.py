@@ -68,7 +68,7 @@ class PaymentCgi(ABC):
         self.mgrurl = ""  # url биллинга
         self.pending_page = ""  # url страницы биллинга с информацией об ожидании зачисления платежа
         self.fail_page = ""  # url страницы биллинга с информацией о неуспешной оплате
-        self.success_page = ""  # url страницы биллинга с информацией о успешной оплате
+        self.success_page = ""  # url страницы биллинга с информацией об успешной оплате
 
         self.payment_params = {}  # параметры платежа
         self.paymethod_params = {}  # параметры метода оплаты
