@@ -2,13 +2,13 @@ import os
 
 os.chdir("/usr/local/mgr5")
 
-from abc import ABC, abstractmethod
-from billmgr.misc import MgrctlXml
-import billmgr.db
-import billmgr.exception
-from enum import Enum
-import sys
-import xml.etree.ElementTree as ET
+from abc import ABC, abstractmethod # noqa
+from billmgr.misc import MgrctlXml # noqa
+import billmgr.db # noqa
+import billmgr.exception # noqa
+from enum import Enum # noqa
+import sys # noqa
+import xml.etree.ElementTree as ET # noqa
 
 MODULE = 'payment'
 
@@ -32,11 +32,11 @@ class PaymentStatus(Enum):
 
 # перевести платеж в статус "оплачивается"
 def set_in_pay(payment_id: str, info: str, externalid: str):
-    '''
+    """
     payment_id - id платежа в BILLmanager
     info       - доп. информация о платеже от платежной системы
     externalid - внешний id на стороне платежной системы
-    '''
+    """
     MgrctlXml('payment.setinpay', elid=payment_id, info=info, externalid=externalid)
 
 
@@ -103,8 +103,9 @@ class PaymentCgi(ABC):
         # получить токен авторизации
         self.auth = cookies["billmgrses5"]
 
-        # получить параметры платежа и метода оплаты
-        # см. https://docs.ispsystem.ru/bc/razrabotchiku/sozdanie-modulej/sozdanie-modulej-plateyonyh-sistem#id-Созданиемодулейплатежныхсистем-CGIскриптымодуля
+        # получить параметры платежа и метода оплаты см.
+        # https://docs.ispsystem.ru/bc/razrabotchiku/sozdanie-modulej/sozdanie-modulej-plateyonyh-sistem#id
+        # -Созданиемодулейплатежныхсистем-CGIскриптымодуля
         payment_info_xml = MgrctlXml("payment.info", elid=self.elid, lang=self.lang)
         for elem in payment_info_xml.findall("./payment/"):
             self.payment_params[elem.tag] = elem.text
@@ -112,7 +113,7 @@ class PaymentCgi(ABC):
             self.paymethod_params[elem.tag] = elem.text
 
         # получаем параметры пользователя
-        # получаем с помощью функции whoami информацию о авторизованном пользователе
+        # получаем с помощью функции whoami информацию об авторизованном пользователе
         # в качестве параметра передаем auth - токен сессии
         user_node = MgrctlXml("whoami", auth=self.auth).find('./user')
         if user_node is None:
@@ -127,14 +128,14 @@ class PaymentCgi(ABC):
                 " WHERE u.id = '" + user_node.attrib['id'] + "'"
         )
         if user_query:
-            self.user_params["user_id"] = user_query["id"];
-            self.user_params["phone"] = user_query["phone"];
-            self.user_params["email"] = user_query["email"];
-            self.user_params["realname"] = user_query["realname"];
-            self.user_params["language"] = user_query["language"];
-            self.user_params["country"] = user_query["country"];
-            self.user_params["account_id"] = user_query["account"];
-            self.user_params["account_registration_date"] = user_query["registration_date"];
+            self.user_params["user_id"] = user_query["id"]
+            self.user_params["phone"] = user_query["phone"]
+            self.user_params["email"] = user_query["email"]
+            self.user_params["realname"] = user_query["realname"]
+            self.user_params["language"] = user_query["language"]
+            self.user_params["country"] = user_query["country"]
+            self.user_params["account_id"] = user_query["account"]
+            self.user_params["account_registration_date"] = user_query["registration_date"]
 
 
 # фичи платежного модуля

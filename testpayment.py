@@ -1,5 +1,3 @@
-#!/root/IPSsystemTask/venv/bin/python3
-
 import payment
 import sys
 
@@ -9,10 +7,11 @@ MODULE = 'payment'
 logging.init_logging('testpayment')
 logger = logging.get_logger('testpayment')
 
+
 class TestPaymentCgi(payment.PaymentCgi):
     def Process(self):
-        # необходимые данные достаем из self.payment_params, self.paymethod_params, self.user_params
-        # здесь для примера выводим параметры метода оплаты (self.paymethod_params) и платежа (self.payment_params) в лог
+        # необходимые данные достаем из self.payment_params, self.paymethod_params, self.user_params здесь для
+        # примера выводим параметры метода оплаты (self.paymethod_params) и платежа (self.payment_params) в лог
         logger.info(f"paymethod_params = {self.paymethod_params}")
         logger.info(f"payment_params = {self.payment_params}")
 
@@ -22,11 +21,11 @@ class TestPaymentCgi(payment.PaymentCgi):
         # url для перенаправления c cgi
         # здесь, в тестовом примере сразу перенаправляем на страницу BILLmanager
         # должны перенаправлять на страницу платежной системы
-        redirect_url = self.pending_page;
+        redirect_url = self.pending_page
 
         # формируем html и отправляем в stdout
         # таким образом переходим на redirect_url
-        payment_form =  "<html>\n";
+        payment_form = "<html>\n"
         payment_form += "<head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>\n"
         payment_form += "<link rel='shortcut icon' href='billmgr.ico' type='image/x-icon' />"
         payment_form += "	<script language='JavaScript'>\n"
@@ -37,7 +36,7 @@ class TestPaymentCgi(payment.PaymentCgi):
         payment_form += "</head>\n"
         payment_form += "<body onload='DoSubmit()'>\n"
         payment_form += "</body>\n"
-        payment_form += "</html>\n";
+        payment_form += "</html>\n"
 
         sys.stdout.write(payment_form)
 

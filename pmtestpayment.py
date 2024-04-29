@@ -1,5 +1,3 @@
-#!/root/IPSsystemTask/venv/bin/python3
-
 import payment
 import billmgr.db
 import billmgr.exception
@@ -17,10 +15,10 @@ class TestPaymentModule(payment.PaymentModule):
     def __init__(self):
         super().__init__()
 
-        self.features[payment.FEATURE_CHECKPAY] = True
-        self.features[payment.FEATURE_REDIRECT] = True
-        self.features[payment.FEATURE_NOT_PROFILE] = True
-        self.features[payment.FEATURE_PMVALIDATE] = True
+        self.features[payment.FEATURE_CHECKPAY] = False
+        self.features[payment.FEATURE_REDIRECT] = False
+        self.features[payment.FEATURE_NOT_PROFILE] = False
+        self.features[payment.FEATURE_PMVALIDATE] = False
 
         self.params[payment.PAYMENT_PARAM_PAYMENT_SCRIPT] = "/mancgi/testpayment"
 
