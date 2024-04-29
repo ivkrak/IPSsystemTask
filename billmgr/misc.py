@@ -10,6 +10,7 @@ from billmgr.logger import get_logger
 
 MODULE = "billmgr_misc"
 
+
 def MgrctlXml(func: str, **kwargs):
     """
     Вызов mgrctl для billmgr, возвращает результат в xml
@@ -29,21 +30,21 @@ def MgrctlXml(func: str, **kwargs):
     get_logger(MODULE).debug(f'Run command `{" ".join(command)}`')
 
     result = subprocess.run(
-        command,
-        cwd="/usr/local/mgr5",
-        env=dict(
-            os.environ, SSH_CONNECTION=BINARY_NAME
-        ),  # заменяем локальный IP на название обработчика
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+            command,
+            cwd="/usr/local/mgr5",
+            env=dict(
+                    os.environ, SSH_CONNECTION=BINARY_NAME
+            ),  # заменяем локальный IP на название обработчика
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
     )
 
     stdout = result.stdout.decode().strip(" \n\t")
     stderr = result.stderr.decode().strip(" \n\t")
 
     get_logger(MODULE).debug(
-        f"Return code: {result.returncode}"
-        "\nstdout: " + stdout + "\nstderr: " + stderr
+            f"Return code: {result.returncode}"
+            "\nstdout: " + stdout + "\nstderr: " + stderr
     )
 
     if result.returncode != 0:
@@ -79,21 +80,21 @@ def Mgrctl(func: str, **kwargs):
     get_logger(MODULE).debug(f'Run command `{" ".join(command)}`')
 
     result = subprocess.run(
-        command,
-        cwd="/usr/local/mgr5",
-        env=dict(
-            os.environ, SSH_CONNECTION=BINARY_NAME
-        ),  # заменяем локальный IP на название обработчика
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+            command,
+            cwd="/usr/local/mgr5",
+            env=dict(
+                    os.environ, SSH_CONNECTION=BINARY_NAME
+            ),  # заменяем локальный IP на название обработчика
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
     )
 
     stdout = result.stdout.decode().strip(" \n\t")
     stderr = result.stderr.decode().strip(" \n\t")
 
     get_logger(MODULE).debug(
-        f"Return code: {result.returncode}"
-        "\nstdout: " + stdout + "\nstderr: " + stderr
+            f"Return code: {result.returncode}"
+            "\nstdout: " + stdout + "\nstderr: " + stderr
     )
 
     if result.returncode != 0:
@@ -104,4 +105,3 @@ def Mgrctl(func: str, **kwargs):
         raise XmlException("process", "error", stdout)
 
     return response
-

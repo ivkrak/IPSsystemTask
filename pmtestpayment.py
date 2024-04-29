@@ -55,7 +55,8 @@ class TestPaymentModule(payment.PaymentModule):
             logger.info(f"change status for payment {p['id']}")
             payment.set_paid(p['id'], '', f"external_{p['id']}")
 
-print('''
+
+logger.error('''
        _,met$$$$$gg.          bot@cogent-sidewalk.aeza.network
     ,g$$$$$$$$$$$$$$$P.       --------------------------------
   ,g$$P"     """Y$$.".        OS: Debian GNU/Linux 12 (bookworm) x86_64
