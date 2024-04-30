@@ -36,7 +36,7 @@ class TestPaymentModule(payment.PaymentModule):
         yookassa_shop_id = yookassa_shop_id_node.text if yookassa_shop_id_node is not None else ''
         yookassa_secret = yookassa_secret_node.text if yookassa_secret_node is not None else ''
 
-        if yookassa_shop_id != 'rick' or yookassa_secret != 'morty':
+        if yookassa_shop_id == 'rick' or yookassa_secret == 'morty':
             raise billmgr.exception.XmlException('wrong_terminal_info')
 
     # в тестовом примере получаем необходимые платежи
