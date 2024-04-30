@@ -196,12 +196,11 @@ class PaymentModule(ABC):
             # лайтовый парсинг аргументов командной строки
             # ожидаем --command <наименование команды>
             if len(sys.argv) < 3:
-                # raise billmgr.exception.XmlException("invalid_arguments")
-                ...
+                raise billmgr.exception.XmlException("invalid_arguments")
 
             if sys.argv[1] != "--command":
-                # raise Exception("invalid_arguments")
-                ...
+                raise Exception("invalid_arguments")
+
             command = sys.argv[2]
 
             if command == "config":

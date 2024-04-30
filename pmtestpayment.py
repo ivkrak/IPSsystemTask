@@ -57,23 +57,4 @@ class TestPaymentModule(payment.PaymentModule):
             payment.set_paid(p['id'], '', f"external_{p['id']}")
 
 
-logger.error('''
-       _,met$$$$$gg.          bot@cogent-sidewalk.aeza.network
-    ,g$$$$$$$$$$$$$$$P.       --------------------------------
-  ,g$$P"     """Y$$.".        OS: Debian GNU/Linux 12 (bookworm) x86_64
- ,$$P'              `$$$.     Host: KVM RHEL 7.6.0 PC (i440FX + PIIX, 1996)
-',$$P       ,ggs.     `$$b:   Kernel: 6.1.0-18-amd64
-`d$$'     ,$P"'   .    $$$    Uptime: 4 days, 13 hours, 20 mins
- $$P      d$'     ,    $$P    Packages: 492 (dpkg)
- $$:      $$.   -    ,d$$'    Shell: zsh 5.9
- $$;      Y$b._   _,d$P'      Resolution: 1024x768
- Y$$.    `.`"Y$$$$P"'         Terminal: /dev/pts/3
- `$$b      "-.__              CPU: AMD Ryzen 9 7950X3D (1) @ 4.192GHz
-  `Y$$                        GPU: 00:02.0 Cirrus Logic GD 5446
-   `Y$$.                      Memory: 926MiB / 1967MiB
-     `$$b.
-       `Y$$b.
-          `"Y$b._
-              `"""
-''')
 TestPaymentModule().Process()
