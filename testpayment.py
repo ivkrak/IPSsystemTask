@@ -40,4 +40,5 @@ class TestPaymentCgi(payment.PaymentCgi):
 
         sys.stdout.write(payment_form)
 
+
 TestPaymentCgi().Process()
