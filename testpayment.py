@@ -1,9 +1,12 @@
+#!/root/IPSsystemTask/venv/bin/python3
+import sys
 import uuid
 
-import payment
-import sys
+import requests
 
+# import uuid
 import billmgr.logger as logging
+import payment
 
 MODULE = 'payment'
 logging.init_logging('testpayment')
@@ -12,44 +15,53 @@ logger = logging.get_logger('testpayment')
 
 class TestPaymentCgi(payment.PaymentCgi):
     def Process(self):
+        store_id: str = ''
+        secret_key: str = ''
+        return_url: str = ''
+        metadata = {'amount': 666}
+        description: str = ''
+        logger.error(f'TEST_PAYMENT | {self.payment_params=}')
+        logger.error(f'TEST_PAYMENT | {self.paymethod_params=}')
+        logger.error(f'TEST_PAYMENT | {self.user_params=}')
         # необходимые данные достаем из self.payment_params, self.paymethod_params, self.user_params здесь для
         # примера выводим параметры метода оплаты (self.paymethod_params) и платежа (self.payment_params) в лог
-        logger.info(f"paymethod_params = {self.paymethod_params}")
-        logger.info(f"payment_params = {self.payment_params}")
+        # logger.error(f"paymethod_params = {self.paymethod_params}")
+        # logger.error(f"payment_params = {self.payment_params}")
 
         # переводим платеж в статус оплачивается
-        payment.set_in_pay(self.elid, '', 'external_' + self.elid)
+        self.elid = uuid.uuid4()
 
         url = "https://api.yookassa.ru/v3/payments"
 
-        # Аутентификация
-        # auth = (str(store_id), secret_key)
-        #
-        # # Заголовки
-        # headers = {
-        #     'Idempotence-Key': uuid.uuid4(),
-        #     'Content-Type': 'application/json',
-        # }
-        # data = {
-        #     "amount": {
-        #         "value": metadata['amount'],
-        #         "currency": "RUB"
-        #     },
-        #     "confirmation": {
-        #         "type": "redirect",
-        #         "return_url": return_url,
-        #     },
-        #     "capture": True,
-        #     "description": description,
-        #     "metadata": metadata
-        # }
-        #
-        # response = requests.post(url, json=data, headers=headers, auth=auth)
+        auth = (store_id, secret_key)
+
+        # Заголовки
+        headers = {
+            'Idempotence-Key': self.elid,
+            'Content-Type': 'application/json',
+        }
+        data = {
+            "amount": {
+                "value": metadata['amount'],
+                "currency": "RUB"
+            },
+            "confirmation": {
+                "type": "redirect",
+                "return_url": return_url,
+            },
+            "capture": True,
+            "description": description,
+            "metadata": metadata
+        }
+
+        response = requests.post(url, json=data, headers=headers, auth=auth).json()
 
         # url для перенаправления c cgi
         # здесь, в тестовом примере сразу перенаправляем на страницу BILLmanager
         # должны перенаправлять на страницу платежной системы
-        redirect_url = self.pending_page
+
+        payment.set_in_pay(str(self.elid), '', f'external_{response}')
+        redirect_url = response['confirmation']['confirmation_url']  # self.pending_page
 
         # формируем html и отправляем в stdout
         # таким образом переходим на redirect_url
@@ -69,4 +81,5 @@ class TestPaymentCgi(payment.PaymentCgi):
         sys.stdout.write(payment_form)
 
 
+logger.error('запущен testpayment TestPaymentCgi().Process()')
 TestPaymentCgi().Process()

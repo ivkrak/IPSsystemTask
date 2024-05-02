@@ -59,7 +59,7 @@ class PaymentCgi(ABC):
     # основной метод работы cgi
     # абстрактный метод, который необходимо переопределить в конкретной реализации
     @abstractmethod
-    def Process(self):
+    def Process(self, **kwargs):
         pass
 
     def __init__(self):
