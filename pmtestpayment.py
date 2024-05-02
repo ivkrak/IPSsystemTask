@@ -27,7 +27,7 @@ class TestPaymentModule(payment.PaymentModule):
     # Идентификатор терминала = rick, пароль терминала = morty
     def PM_Validate(self, xml: ET.ElementTree):
         logger.info("run pmvalidate")
-        logger.debug(f'{xml}=')
+        logger.debug(f'DEBUG | {xml}=')
         # мы всегда можем вывести xml в лог, чтобы изучить, что приходит :)
         logger.info(f"xml input: {ET.tostring(xml.getroot(), encoding='unicode')}")
 
