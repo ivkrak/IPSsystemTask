@@ -1,3 +1,4 @@
+#!/root/IPSsystemTask/venv/bin/python3
 import os
 
 os.chdir("/usr/local/mgr5")
@@ -77,12 +78,12 @@ class PaymentCgi(ABC):
         self.lang = None  # язык используемый у клиента
 
         # пока поддерживаем только http метод GET
-        if os.environ['REQUEST_METHOD'] != 'GET':
-            raise NotImplemented
+        # if os.environ['REQUEST_METHOD'] != 'GET':
+        #     raise NotImplementedError
 
-        # по-умолчанию используется https
-        if os.environ['HTTPS'] != 'on':
-            raise NotImplemented
+        # # по-умолчанию используется https
+        # if os.environ['HTTPS'] != 'on':
+        #     raise NotImplementedError
 
         # получаем id платежа, он же elid
         input_str = os.environ['QUERY_STRING']

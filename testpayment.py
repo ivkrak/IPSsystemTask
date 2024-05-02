@@ -25,8 +25,6 @@ class TestPaymentCgi(payment.PaymentCgi):
         logger.error(f'TEST_PAYMENT | {self.user_params=}')
         # необходимые данные достаем из self.payment_params, self.paymethod_params, self.user_params здесь для
         # примера выводим параметры метода оплаты (self.paymethod_params) и платежа (self.payment_params) в лог
-        # logger.error(f"paymethod_params = {self.paymethod_params}")
-        # logger.error(f"payment_params = {self.payment_params}")
 
         # переводим платеж в статус оплачивается
         self.elid = uuid.uuid4()
@@ -61,7 +59,7 @@ class TestPaymentCgi(payment.PaymentCgi):
         # должны перенаправлять на страницу платежной системы
 
         payment.set_in_pay(str(self.elid), '', f'external_{response}')
-        redirect_url = response['confirmation']['confirmation_url']  # self.pending_page
+        redirect_url = response['confirmation']['confirmation_url']
 
         # формируем html и отправляем в stdout
         # таким образом переходим на redirect_url
