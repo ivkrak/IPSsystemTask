@@ -1,3 +1,5 @@
+import uuid
+
 import payment
 import sys
 
@@ -17,6 +19,32 @@ class TestPaymentCgi(payment.PaymentCgi):
 
         # переводим платеж в статус оплачивается
         payment.set_in_pay(self.elid, '', 'external_' + self.elid)
+
+        url = "https://api.yookassa.ru/v3/payments"
+
+        # Аутентификация
+        auth = (str(store_id), secret_key)
+
+        # Заголовки
+        headers = {
+            'Idempotence-Key': uuid.uuid4(),
+            'Content-Type': 'application/json',
+        }
+        data = {
+            "amount": {
+                "value": metadata['amount'],
+                "currency": "RUB"
+            },
+            "confirmation": {
+                "type": "redirect",
+                "return_url": return_url,
+            },
+            "capture": True,
+            "description": description,
+            "metadata": metadata
+        }
+
+        response = requests.post(url, json=data, headers=headers, auth=auth)
 
         # url для перенаправления c cgi
         # здесь, в тестовом примере сразу перенаправляем на страницу BILLmanager

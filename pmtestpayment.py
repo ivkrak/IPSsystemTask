@@ -1,4 +1,6 @@
 #!/root/IPSsystemTask/venv/bin/python3
+import uuid
+
 import payment
 import billmgr.db
 import billmgr.exception
@@ -26,18 +28,48 @@ class TestPaymentModule(payment.PaymentModule):
     # в тестовом примере валидация проходит успешно, если
     # Идентификатор терминала = rick, пароль терминала = morty
     def PM_Validate(self, xml: ET.ElementTree):
-        logger.info("run pmvalidate")
-        logger.debug(f'DEBUG | {xml}=')
+        logger.warning("run pmvalidate")
+        logger.warning(f'DEBUG | {xml}=')
         # мы всегда можем вывести xml в лог, чтобы изучить, что приходит :)
-        logger.info(f"xml input: {ET.tostring(xml.getroot(), encoding='unicode')}")
+        logger.warning(f"xml input: {ET.tostring(xml.getroot(), encoding='unicode')}")
 
         yookassa_shop_id_node = xml.find('./yookassa_shop_id')
         yookassa_secret_node = xml.find('./yookassa_secret')
         yookassa_shop_id = yookassa_shop_id_node.text if yookassa_shop_id_node is not None else ''
         yookassa_secret = yookassa_secret_node.text if yookassa_secret_node is not None else ''
 
-        if yookassa_shop_id == 'rick' or yookassa_secret == 'morty':
+        if not (yookassa_shop_id or yookassa_secret):
             raise billmgr.exception.XmlException('wrong_terminal_info')
+        auth = (yookassa_shop_id, yookassa_secret)
+        logger.warning(f'{auth=}')
+        # try:
+        #     url = "https://api.yookassa.ru/v3/payments"
+        #
+        #     # Аутентификация
+        #     auth = (yookassa_shop_id, yookassa_secret)
+        #
+        #     # Заголовки
+        #     headers = {
+        #         'Idempotence-Key': uuid.uuid4(),
+        #         'Content-Type': 'application/json',
+        #     }
+        #     data = {
+        #         "amount": {
+        #             "value": metadata['amount'],
+        #             "currency": "RUB"
+        #         },
+        #         "confirmation": {
+        #             "type": "redirect",
+        #             "return_url": return_url,
+        #         },
+        #         "capture": True,
+        #         "description": description,
+        #         "metadata": metadata
+        #     }
+        #
+        #     response = requests.post(url, json=data, headers=headers, auth=auth)
+        # except:
+        #     ...
 
     # в тестовом примере получаем необходимые платежи
     # и переводим их все в статус 'оплачен'
